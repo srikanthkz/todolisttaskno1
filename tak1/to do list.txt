@@ -1,0 +1,52 @@
+def display_menu():
+    print("\n  Menu:")
+    print("1. View ")
+    print("2. Add Task")
+    print("3. Mark Task as Completed(done/not done)")
+    print("4. Exit")
+
+def view_todo_list(todo_list):
+    if not todo_list:
+        print("\n Your list is empty! add a task to view the list !!")
+    else:
+        print("\n Your To-Do List is displayed :")
+        for i, task in enumerate(todo_list, start=1):
+            status = "Done" if task['completed'] else "Not Done"
+            print(f"{i}. {task['task']} - {status}")
+
+def add_task(todo_list):
+    task = input("\n Enter the task to be added : ")
+    todo_list.append({"task": task, "completed": False})
+    print("Task added succesfully!")
+
+def mark_task_completed(todo_list):
+    view_todo_list(todo_list)
+    try:
+        task_num = int(input("\n Enter the task number to mark as completed: "))
+        if 1 <= task_num <= len(todo_list):
+            todo_list[task_num - 1]['completed'] = True
+            print("Task marked as completed!")
+        else:
+            print("Invalid task number.")
+    except ValueError:
+        print("Please enter a valid number to continue.")
+
+def main():
+    todo_list = []
+    while True:
+        display_menu()
+        choice = input("\n Enter your choice: ")
+        if choice == '1':
+            view_todo_list(todo_list)
+        elif choice == '2':
+            add_task(todo_list)
+        elif choice == '3':
+            mark_task_completed(todo_list)
+        elif choice == '4':
+            print("Goodbye! ")
+            break
+        else:
+            print("Invalid choice. Please enter a number between 1 and 4 to continue.")
+
+if _name_ == "_main_":
+    main()
